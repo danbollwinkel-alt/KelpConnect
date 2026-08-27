@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KelpConnect — Where this comes from</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EAF1E9;
+    --bg-card: #F6FAF5;
+    --bg-sunken: #FBFDFA;
+    --header-grad: #E2EEE0;
+    --input-bg: #FFFFFF;
+    --ink: #1E2B22;
+    --ink-soft: #4B5E52;
+    --on-ink: #F6FAF5;
+    --on-gold: #FBF3E4;
+    --line: #C9D8C6;
+    --gold: #C98A2E;
+    --gold-deep: #8E601B;
+    --gold-pale: #FBF3E4;
+    --gold-line: #E3CFA1;
+    --gold-chip-bg: #F2E9D6;
+    --sea: #3E6B72;
+    --sea-soft: #DCEAEA;
+    --sea-line: #BFD5D5;
+    --dev: #7C8B93;
+    --dev-bg: #EBEEF0;
+    --undisclosed: #68766E;
+    --chip-bg: #EDEFE9;
+    --wild-bg: #EAEEF4;
+    --wild-line: #C9D2E0;
+    --wild-ink: #4A5A72;
+    --warn-bg: #FBF0E4;
+    --tab-active: #EFF4ED;
+    --awarded-bg: #E4EDE2;
+    --awarded-line: #C2D6C0;
+    --awarded-ink: #3F6B45;
+    --awarded-row: #E9F1E7;
+    --track-bg: #E1E8DF;
+    --track-a: #E3EAE0;
+    --neg: #8C3A2E;
+    --shadow: rgba(30,43,34,0.08);
+    --radius: 6px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif; line-height: 1.5;
+  }
+
+  header.site {
+    padding: 22px 32px 0; border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--header-grad) 0%, var(--bg) 100%);
+  }
+  .wordmark {
+    font-family: 'IBM Plex Serif', serif; font-weight: 600; font-size: 1.35rem;
+    display: flex; align-items: baseline; gap: 8px;
+  }
+  .wordmark .dot { color: var(--gold); font-size: 1.2rem; }
+  .mainnav { display: flex; gap: 20px; margin-top: 12px; flex-wrap: wrap; }
+  .mainnav a {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 0.86rem;
+    color: var(--ink-soft); text-decoration: none;
+    padding-bottom: 8px; border-bottom: 2px solid transparent;
+  }
+  .mainnav a:hover { color: var(--ink); }
+  .mainnav a[aria-current="page"] { color: var(--ink); font-weight: 500; border-bottom-color: var(--gold); }
+  .mainnav a:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
+
+  main { max-width: 980px; margin: 0 auto; padding: 34px 32px 70px; }
+
+  .page-head { margin-bottom: 28px; }
+  h1 {
+    font-family: 'IBM Plex Serif', serif; font-weight: 600;
+    font-size: clamp(1.6rem, 3.4vw, 2.1rem); margin: 0 0 12px; line-height: 1.2;
+  }
+  .lede { font-size: 1rem; color: var(--ink-soft); max-width: 66ch; margin: 0 0 16px; }
+
+  .disclosure {
+    background: var(--sea-soft); border: 1px solid var(--sea-line);
+    border-radius: var(--radius); padding: 14px 16px;
+    font-size: 0.88rem; max-width: 74ch;
+  }
+  .disclosure strong { font-weight: 600; }
+
+  blockquote.pull {
+    margin: 28px 0; padding: 20px 24px;
+    background: var(--gold-pale); border: 1px solid var(--gold-line);
+    border-left: 4px solid var(--gold-deep); border-radius: var(--radius);
+  }
+  blockquote.pull p {
+    font-family: 'IBM Plex Serif', serif; font-size: 1.1rem;
+    margin: 0 0 10px; line-height: 1.4;
+  }
+  blockquote.pull cite {
+    font-style: normal; font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem; color: var(--gold-deep);
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  section.block {
+    background: var(--bg-card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 24px 26px; margin-bottom: 20px;
+  }
+  h2 { font-family: 'IBM Plex Serif', serif; font-size: 1.14rem; margin: 0 0 4px; }
+  .block-note { font-size: 0.84rem; color: var(--ink-soft); margin: 0 0 18px; max-width: 68ch; }
+
+  .entry { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .entry:last-child { border-bottom: none; padding-bottom: 0; }
+  .entry-head { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; flex-wrap: wrap; }
+  .entry-name { font-family: 'IBM Plex Serif', serif; font-weight: 600; font-size: 1rem; }
+  .entry-name a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--gold); }
+  .entry-name a:hover { color: var(--gold-deep); }
+  .entry-name a:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
+  .entry-kind {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft);
+    border: 1px solid var(--line); background: var(--chip-bg);
+    border-radius: 3px; padding: 2px 7px; white-space: nowrap;
+  }
+  .entry-what { font-size: 0.9rem; margin: 6px 0 0; max-width: 70ch; }
+  .entry-use {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.74rem;
+    color: var(--gold-deep); margin-top: 6px;
+  }
+  .entry-use::before { content: "\2197  "; }
+
+  footer.disclaimer {
+    max-width: 980px; margin: 0 auto; padding: 0 32px 44px;
+    font-size: 0.78rem; color: var(--ink-soft); max-width: 84ch;
+  }
+
+  /* ---- night mode ---- */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+    --bg: #121A15;
+    --bg-card: #1A231D;
+    --bg-sunken: #202A23;
+    --header-grad: #16201A;
+    --input-bg: #0E150F;
+    --ink: #E3ECE2;
+    --ink-soft: #9BAE9E;
+    --on-ink: #10170F;
+    --on-gold: #1A140A;
+    --line: #2F3C33;
+    --gold: #D9A24E;
+    --gold-deep: #E6B76A;
+    --gold-pale: #2B2318;
+    --gold-line: #4A3B22;
+    --gold-chip-bg: #33291A;
+    --sea: #79AEB6;
+    --sea-soft: #1D2E31;
+    --sea-line: #2C4448;
+    --dev: #8C9BA3;
+    --dev-bg: #232A2D;
+    --undisclosed: #7E8C84;
+    --chip-bg: #262F28;
+    --wild-bg: #212832;
+    --wild-line: #38414F;
+    --wild-ink: #A8B6CC;
+    --warn-bg: #2C2419;
+    --tab-active: #232D26;
+    --awarded-bg: #1E2C21;
+    --awarded-line: #35513A;
+    --awarded-ink: #8FC496;
+    --awarded-row: #1E2C21;
+    --track-bg: #263029;
+    --track-a: #263029;
+    --neg: #E08878;
+    --shadow: rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #121A15;
+    --bg-card: #1A231D;
+    --bg-sunken: #202A23;
+    --header-grad: #16201A;
+    --input-bg: #0E150F;
+    --ink: #E3ECE2;
+    --ink-soft: #9BAE9E;
+    --on-ink: #10170F;
+    --on-gold: #1A140A;
+    --line: #2F3C33;
+    --gold: #D9A24E;
+    --gold-deep: #E6B76A;
+    --gold-pale: #2B2318;
+    --gold-line: #4A3B22;
+    --gold-chip-bg: #33291A;
+    --sea: #79AEB6;
+    --sea-soft: #1D2E31;
+    --sea-line: #2C4448;
+    --dev: #8C9BA3;
+    --dev-bg: #232A2D;
+    --undisclosed: #7E8C84;
+    --chip-bg: #262F28;
+    --wild-bg: #212832;
+    --wild-line: #38414F;
+    --wild-ink: #A8B6CC;
+    --warn-bg: #2C2419;
+    --tab-active: #232D26;
+    --awarded-bg: #1E2C21;
+    --awarded-line: #35513A;
+    --awarded-ink: #8FC496;
+    --awarded-row: #1E2C21;
+    --track-bg: #263029;
+    --track-a: #263029;
+    --neg: #E08878;
+    --shadow: rgba(0,0,0,0.35);
+  }
+
+  header.site { position: relative; }
+  .theme-toggle {
+    position: absolute; top: 20px; right: 32px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    background: transparent; border: 1px solid var(--line);
+    color: var(--ink-soft); border-radius: 999px;
+    padding: 5px 12px; cursor: pointer;
+  }
+  .theme-toggle:hover { color: var(--ink); border-color: var(--ink-soft); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--gold-deep); outline-offset: 2px; }
+  @media (max-width: 620px) { .theme-toggle { position: static; margin-top: 10px; } }
+
+  /* ---- photography ---- */
+  figure.photo-frame {
+    margin: 0 0 20px; background: var(--bg-card); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  figure.photo-frame img { width: 100%; display: block; object-fit: cover; background: var(--bg-sunken); }
+  figure.photo-frame.inline-photo img { max-height: 320px; }
+  figure.photo-frame figcaption {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    padding: 10px 16px; font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
+    color: var(--ink-soft); border-top: 1px solid var(--line);
+  }
+  figure.photo-frame figcaption a { color: var(--sea); text-decoration: none; border-bottom: 1px solid var(--sea); white-space: nowrap; }
+  figure.photo-frame figcaption a:hover { color: var(--gold-deep); border-bottom-color: var(--gold-deep); }
+</style>
+<script>
+(function () {
+  var KEY = 'kc-theme';
+  function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function save(t) { try { localStorage.setItem(KEY, t); } catch (e) {} }
+  function current() {
+    var a = document.documentElement.getAttribute('data-theme');
+    if (a) return a;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  }
+  function label() {
+    var b = document.getElementById('themeToggle');
+    if (b) b.textContent = current() === 'dark' ? 'Day' : 'Night';
+  }
+  var s = stored();
+  if (s) document.documentElement.setAttribute('data-theme', s);
+  document.addEventListener('DOMContentLoaded', function () {
+    label();
+    var b = document.getElementById('themeToggle');
+    if (!b) return;
+    b.addEventListener('click', function () {
+      var next = current() === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      save(next); label();
+    });
+  });
+})();
+</script>
+</head>
+<body>
+
+<header class="site">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle night mode">Night</button>
+  <div class="wordmark">KelpConnect<span class="dot">&bull;</span></div>
+  <nav class="mainnav" aria-label="Main">
+    <a href="index.html">Home</a>
+    <a href="kelpconnect_marketplace_browse.html">Marketplace</a>
+    <a href="kelpconnect_supplier_profile.html">Suppliers</a>
+    <a href="kelpconnect_buyer_profile.html">Buyers</a>
+    <a href="kelpconnect_rfp_tracker.html">Requests</a>
+    <a href="kelpconnect_margin_calculator.html">Calculator</a>
+    <a href="kelpconnect_resources.html" aria-current="page">Where this comes from</a>
+    <a href="kelpconnect_map.html">Map</a>
+    <a href="kelpconnect_join.html">Join</a>
+  </nav>
+</header>
+
+<main>
+
+  <div class="page-head">
+    <h1>Where this comes from</h1>
+    <p class="lede">KelpConnect doesn't monitor kelp, fund restoration, or put divers in the water. Other people do that, and this platform runs on their data and their labor. This page says who they are.</p>
+    <div class="disclosure">
+      <strong>None of these organizations have partnered with, endorsed, or reviewed KelpConnect.</strong> They appear here because their work is real, publicly available, and in several cases because the Certified Restorative assessment would not function without data they publish. Listing is credit, not affiliation.
+    </div>
+  </div>
+
+  <blockquote class="pull">
+    <p>&ldquo;A successful restoration program must be grounded in self-sustaining economic models.&rdquo;</p>
+    <cite>Noyo Center for Marine Science, on why grant funding alone won't restore the kelp forest</cite>
+  </blockquote>
+
+  <section class="block">
+    <h2>The data behind the score</h2>
+    <p class="block-note">Every input to a Certified Restorative assessment traces back to one of these. If you want to check our work, start here rather than with us.</p>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://kelpwatch.org" target="_blank" rel="noopener">KelpWatch</a></span>
+        <span class="entry-kind">Open data</span>
+      </div>
+      <p class="entry-what">Near-real-time satellite monitoring of California kelp canopy, built by The Nature Conservancy, Woods Hole Oceanographic Institution, UCLA, and UC Santa Barbara, with Ocean Protection Council funding. Open to anyone.</p>
+      <p class="entry-use">Locality and restoration-zone alignment scoring</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://wildlife.ca.gov/Conservation/Marine/Kelp/KRMP" target="_blank" rel="noopener">CDFW &mdash; Kelp Restoration and Management Plan</a></span>
+        <span class="entry-kind">State agency</span>
+      </div>
+      <p class="entry-what">California's in-development statewide plan for kelp restoration and management, with an active community working group. The most current framework for what counts as a restoration priority area.</p>
+      <p class="entry-use">Restoration priority zones; harvest permitting context</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://opc.ca.gov/2023/07/help-the-kelp/" target="_blank" rel="noopener">California Ocean Protection Council</a></span>
+        <span class="entry-kind">State agency</span>
+      </div>
+      <p class="entry-what">Released the 2021 Kelp Action Plan, funds the statewide Kelp Recovery Research Program, and has committed to restoring 2,000 acres of degraded kelp forest by 2030.</p>
+      <p class="entry-use">The 2,000-acre commitment; removal program funding records</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://caseagrant.ucsd.edu/kelp-research" target="_blank" rel="noopener">California Sea Grant &mdash; Kelp Research</a></span>
+        <span class="entry-kind">Research program</span>
+      </div>
+      <p class="entry-what">Co-administers the Kelp Recovery Research Program with OPC and CDFW, including work on land-based echinoculture &mdash; the science behind urchin ranching.</p>
+      <p class="entry-use">Roe yield and grow-out assumptions in the margin calculator</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Who does the work in the water</h2>
+    <p class="block-note">Restoration on this coast is done by a small number of organizations working with commercial and volunteer divers. Several are plausible suppliers on this platform; none has agreed to be.</p>
+
+    <figure class="photo-frame inline-photo">
+      <img src="https://sanctuaries.noaa.gov/media/img/20170131-urchin-harvesting-1000.jpg"
+           alt="A diver in a wetsuit underwater reaching toward a purple sea urchin"
+           loading="lazy">
+      <figcaption>
+        <span>Commercial urchin divers do the actual removal work this platform is built around</span>
+        <a href="https://farallones.noaa.gov/news/kelp-restoration-media-kit/video-b-roll.html" target="_blank" rel="noopener">Photo: Grant Downey / NOAA &rarr;</a>
+      </figcaption>
+    </figure>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://www.noyocenter.org/help-the-kelp" target="_blank" rel="noopener">Noyo Center for Marine Science &mdash; Help the Kelp</a></span>
+        <span class="entry-kind">Fort Bragg</span>
+      </div>
+      <p class="entry-what">Coordinates urchin removal on the Mendocino coast, runs public education programming, and is developing a regenerative aquaculture wet lab. Has argued publicly that restoration needs self-sustaining economic models rather than indefinite grant funding.</p>
+      <p class="entry-use">The argument this whole platform is built on</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://www.reefcheck.org/kelp-forest-program/kelp-restoration/" target="_blank" rel="noopener">Reef Check California &mdash; Kelp Forest Program</a></span>
+        <span class="entry-kind">Monitoring &amp; restoration</span>
+      </div>
+      <p class="entry-what">Runs the largest scuba-based citizen science monitoring program on the coast and led restoration at Noyo Bay and Albion Cove with CDFW, OPC, The Nature Conservancy, and Noyo Center. In the first month at Noyo Bay, 13 commercial divers cleared roughly six acres and landed 21,276 lb of purple urchin.</p>
+      <p class="entry-use">Urchin density monitoring protocols; restoration-contribution evidence</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://response.restoration.noaa.gov/about/media/see-restoration-action-californias-kelp-forests.html" target="_blank" rel="noopener">The Bay Foundation &mdash; Southern California kelp restoration</a></span>
+        <span class="entry-kind">Southern California</span>
+      </div>
+      <p class="entry-what">Coordinates urchin barren clearing in southern California with volunteer and commercial divers. Received up to $707,000 from OPC in March 2026 for Channel Islands kelp restoration. Linked here via NOAA's account of the work, as we haven't independently confirmed their current program page.</p>
+      <p class="entry-use">Southern California restoration site context</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Learn more</h2>
+    <p class="block-note">If you want to understand the kelp crisis rather than transact in it, these are better starting points than anything we've written.</p>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://bullkelp.info" target="_blank" rel="noopener">The Mysterious World of Bull Kelp</a></span>
+        <span class="entry-kind">Science communication</span>
+      </div>
+      <p class="entry-what">An illustrated web project by artist Josie Iselin covering kelp species, regional stories, restoration strategies, and aquaculture. The most approachable introduction to why any of this matters.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://www.montereybayaquarium.org/change-impact/our-conservation-work/kelp-forest-resilience-and-recovery" target="_blank" rel="noopener">Monterey Bay Aquarium &mdash; Kelp Forest Resilience &amp; Recovery</a></span>
+        <span class="entry-kind">Research</span>
+      </div>
+      <p class="entry-what">Studies why kelp forests become urchin barrens and when they recover, including the role of urchin behavior and sea otter presence, with CDFW and Monterey Bay National Marine Sanctuary.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://www.montereybayaquarium.org/change-impact/our-conservation-work/seafood-watch" target="_blank" rel="noopener">Seafood Watch</a></span>
+        <span class="entry-kind">Rating system</span>
+      </div>
+      <p class="entry-what">The established sustainable seafood rating system, with a published, peer-reviewed scoring methodology. Certified Restorative is designed to complement it, not replace it &mdash; Seafood Watch scores harm avoidance, which is a different question from restoration contribution.</p>
+      <p class="entry-use">The benchmark our own methodology was built against</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://kelpforestalliance.com/" target="_blank" rel="noopener">Kelp Forest Alliance</a></span>
+        <span class="entry-kind">Global database</span>
+      </div>
+      <p class="entry-what">A searchable record of kelp restoration projects worldwide, including the Mendocino sites. Useful for seeing how California's situation compares to kelp loss elsewhere.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <h2>Get involved</h2>
+    <p class="block-note">You do not need to be a diver, a buyer, or a supplier to be useful here.</p>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://www.noyocenter.org/help-the-kelp" target="_blank" rel="noopener">Noyo Center &mdash; Help the Kelp</a></span>
+        <span class="entry-kind">Volunteer &amp; give</span>
+      </div>
+      <p class="entry-what">Public programming, volunteer opportunities, and direct support for kelp restoration on the Mendocino coast.</p>
+    </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-name"><a href="https://www.reefcheck.org/kelp-forest-program/" target="_blank" rel="noopener">Reef Check &mdash; Citizen science monitoring</a></span>
+        <span class="entry-kind">Volunteer</span>
+      </div>
+      <p class="entry-what">Certified divers can join the kelp forest monitoring program. The data volunteers collect is part of what makes restoration measurable at all &mdash; including on this platform.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="disclaimer">
+  Links open in a new tab and lead to third-party sites KelpConnect does not control. Descriptions are our own summaries of publicly available information and have not been reviewed or approved by the organizations described. Where we could not verify an organization's own current program page, we have linked a verified third-party account instead and said so.
+</footer>
+
+</body>
+</html>
